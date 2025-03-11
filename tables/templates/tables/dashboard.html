@@ -1,0 +1,26 @@
+{% extends "tables/base.html" %}
+{% block content %}
+<h2>Welcome, {{ request.user.username }}</h2>
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Value</th>
+    </tr>
+    {% for entry in table_entries %}
+    <tr>
+        <td>{{ entry.name }}</td>
+        <td>{{ entry.value }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<form method="POST" action="{% url 'add_entry' %}">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="number" name="value" placeholder="Value" required>
+    <button type="submit">Add Entry</button>
+</form>
+
+<a href="{% url 'logout' %}">Logout</a>
+{% endblock %}
